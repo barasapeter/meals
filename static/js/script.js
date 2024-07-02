@@ -4,8 +4,12 @@ function fetchMeals() {
     fetch('/api/meals')
         .then(response => response.json())
         .then(data => {
-            if (data.length !== 0) {
+            if (data.length === 0) {
+                mealsList.innerHTML = 'Nothing to show, add dish now! Lets make a menu togeeza 😂';
+                mealsList.style.textAlign = 'center';
+            } else {
                 mealsList.innerHTML = '';
+                mealsList.style.textAlign = 'left';
             };
             data.forEach(meal => {
                 const card = document.createElement('div');
@@ -26,6 +30,7 @@ function fetchMeals() {
         .catch(error => {
             console.error('eerror fetching meals:', error);
             mealsList.innerHTML = '<p>Error loading meals. Please try again later.</p>';
+            // document.getElementById('nothing').innerText = 'Hello';
         });
 }
 
@@ -102,6 +107,7 @@ function deleteMeal(id) {
         .catch(error => {
             console.error('Error:', error);
             alert('An error occurred while deleting the meal.');
+            fetchMeals();
         });
     }
 }
