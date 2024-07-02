@@ -3,7 +3,7 @@ from datetime import datetime
 from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-import os
+import os, utils
 
 from flask_wtf.csrf import CSRFProtect
 
@@ -69,7 +69,7 @@ def get_meals():
         meals_list.append({
             'id': meal.id,
             'name': meal.name,
-            'date': meal.date.strftime('%Y-%m-%d'),
+            'date': f'{utils.CustomCalendar.week_day_name(meal.date.strftime('%Y-%m-%d'))} {meal.date.strftime('%Y-%m-%d')} ',
             'meal_type': meal.meal_type,
             'time': meal.time.strftime('%H:%M') if meal.time else None
         })
