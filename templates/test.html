@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Meals List</title>
+    <style>
+        #mealsList {
+            font-family: 'Poppins', sans-serif;
+            margin: 20px;
+        }
+        .meal {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .meal h3 {
+            margin: 0 0 5px 0;
+            color: #333;
+        }
+        .meal p {
+            margin: 0;
+            color: #666;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mealsList = document.getElementById('mealsList');
+
+            function fetchMeals() {
+                fetch('http://127.0.0.1:5001/api/meals')
+                    .then(response => response.json())
+                    .then(data => {
+                        mealsList.innerHTML = '';
+                        data.forEach(meal => {
+                            const mealDiv = document.createElement('div');
+                            mealDiv.classList.add('meal');
+
+                            const mealName = document.createElement('h3');
+                            mealName.textContent = meal.name;
+
+                            const mealDate = document.createElement('p');
+                            mealDate.textContent = `Date: ${meal.date}`;
+
+                            const mealType = document.createElement('p');
+                            mealType.textContent = `Type: ${meal.meal_type}`;
+
+                            const mealTime = document.createElement('p');
+                            mealTime.textContent = `Time: ${meal.time ? meal.time : 'N/A'}`;
+
+                            mealDiv.appendChild(mealName);
+                            mealDiv.appendChild(mealDate);
+                            mealDiv.appendChild(mealType);
+                            mealDiv.appendChild(mealTime);
+
+                            mealsList.appendChild(mealDiv);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching meals:', error);
+                        mealsList.innerHTML = '<p>Error loading meals. Please try again later.</p>';
+                    });
+            }
+
+            fetchMeals();
+        });
+    </script>
+</head>
+<body>
+    <div id="mealsList">
+        <!-- Meals will be loaded here -->
+    </div>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Mary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        .dialog-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .dialog-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .dialog-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background-color: white;
+            padding: 20px;
+            border-radius: 20px;
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .dialog-overlay.active .dialog-box {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>   
+
+    <div class="container">
+        <h1>Food is therapy ikyk 😋</h1>
+        <div id="main" class="main">
+            Nothing to show, add dish now! Lets make a menu 
+        </div>
+
+        <div id='homeCoolButton' class="controls">
+            <button class="coolButton" id="openDialogBtn">
+                <i class="fas fa-plus" style="margin-right: 8px;"></i>
+                ADD
+                <span></span>
+            </button>
+        </div>
+
+        <p class="message">Tukishakula tunakulana 🥹 <span class="heart">❤️</span></p>
+    </div>
+
+    <div id="dialogOverlay" class="dialog-overlay">
+        <div id="dialogBox" class="dialog-box">
+            <span class="close-btn" id="closeDialogBtn">&times;</span>
+            <form id="addDishForm">
+                <h2 style="margin: 0 0 15px 0; color: #333; font-family: 'Poppins', sans-serif; text-align: left;">Add a New Dish</h2>
+                <input type="text" placeholder="Enter name, eg. Ndizi nyama...">
+                <select name="date" id="date">
+                    <option value="" disabled selected>Select a date and day</option>
+                    <option value="2024-07-16">Tuesday, July 16, 2024</option>
+                    <option value="2024-07-17">Wednesday, July 17, 2024</option>
+                    <option value="2024-07-18">Thursday, July 18, 2024</option>
+                    <option value="2024-07-19">Friday, July 19, 2024</option>
+                    <option value="2024-07-20">Saturday, July 20, 2024</option>
+                    <option value="2024-07-21">Sunday, July 21, 2024</option>
+                </select>    
+                <select name="type" id="type">
+                    <option value="" disabled selected>Pick type</option>
+                    <option value="breakfast">Breakfast</option>
+                    <option value="lunch">Lunch</option>
+                    <option value="dinner">Dinner</option>
+                    <option value="snack">Takeaway snack</option>
+                    <option value="outside">We eat outside</option>
+                </select>  
+                <div class="input-group">
+                    <label for="time" style="color: pink; margin-left: 5px;">Select Time</label>
+                    <input type="time" name="time" id="time">
+                </div>
+                <button id="submitButton" type="submit" class="coolButton" style="cursor: pointer; width: 100%;">
+                    <i class="fas fa-plus-circle" style="margin-right: 8px;"></i>
+                    add
+                    <span></span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const openDialogBtn = document.getElementById('openDialogBtn');
+            const closeDialogBtn = document.getElementById('closeDialogBtn');
+            const dialogOverlay = document.getElementById('dialogOverlay');
+            const addDishForm = document.getElementById('addDishForm');
+
+            openDialogBtn.addEventListener('click', function() {
+                dialogOverlay.classList.add('active');
+            });
+
+            closeDialogBtn.addEventListener('click', function() {
+                dialogOverlay.classList.remove('active');
+            });
+
+            addDishForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                // Here you can add logic to handle form submission
+                console.log('Form submitted');
+                dialogOverlay.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
