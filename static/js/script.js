@@ -43,3 +43,62 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const mealsList = document.getElementById('mealsList');
+
+    function fetchMeals() {
+        fetch('http://127.0.0.1:5001/api/meals')
+            .then(response => response.json())
+            .then(data => {
+                mealsList.innerHTML = '';
+                data.forEach(meal => {
+                    const card = document.createElement('div');
+                    card.className = 'meal-card';
+                    card.innerHTML = `
+                        <div class="meal-name">${meal.name}</div>
+                        <div class="meal-info"><span class="meal-label">Date:</span> ${meal.date}</div>
+                        <div class="meal-info"><span class="meal-label">Type:</span> ${meal.meal_type}</div>
+                        <div class="meal-info"><span class="meal-label">Time:</span> ${meal.time ? meal.time : 'N/A'}</div>
+                        <div class="btn-container">
+                            <button class="btn btn-update" onclick="updateMeal(${meal.id})">Update</button>
+                            <button class="btn btn-delete" onclick="deleteMeal(${meal.id})">Delete</button>
+                        </div>
+                    `;
+                    mealsList.appendChild(card);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching meals:', error);
+                mealsList.innerHTML = '<p>Error loading meals. Please try again later.</p>';
+            });
+    }
+
+    fetchMeals();
+});
+
+function updateMeal(id) {
+    alert('Update functionality to be implemented for meal ID: ' + id);
+    // Implement the update functionality here
+}
+
+function deleteMeal(id) {
+    if (confirm('Are you sure you want to delete this meal?')) {
+        fetch('http://127.0.0.1:5001/api/meals/' + id, {
+            method: 'DELETE'
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Meal deleted successfully.');
+                location.reload(); // Reload the page to see the changes
+            } else {
+                alert('Error deleting meal.');
+            }
+        })
+        .catch(error => {
+            console.error('Error deleting meal:', error);
+            alert('Error deleting meal.');
+        });
+    }
+}

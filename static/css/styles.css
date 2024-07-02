@@ -173,6 +173,7 @@ input[type="text"], select, input[type="time"] {
 
 .main {
     margin: 20px;
+    text-align: left;
 }
 
 .coolButton {
@@ -217,4 +218,78 @@ h1 {
 }
 @keyframes beat {
     to { transform: scale(1.4); }
+}
+
+
+
+
+
+
+
+
+
+
+
+#mealsList {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+.meal-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s ease;
+}
+.meal-card:hover {
+    transform: translateY(-5px);
+}
+.meal-name {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #6c5ce7;
+    margin-bottom: 10px;
+}
+.meal-info {
+    margin-bottom: 5px;
+}
+.meal-label {
+    font-weight: 600;
+    color: #2d3436;
+}
+.btn-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+.btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+.btn-update {
+    background-color: #00b894;
+    color: white;
+}
+.btn-delete {
+    background-color: #d63031;
+    color: white;
+}
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Media query for larger screens */
+@media (min-width: 768px) {
+    #mealsList {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        max-width: none;
+    }
 }
