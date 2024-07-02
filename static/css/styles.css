@@ -186,7 +186,6 @@ input[type="text"], select, input[type="time"] {
     text-transform: uppercase;
     letter-spacing: 2px;
     border-radius: 30px;
-    cursor: pointer;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
     display: inline-flex;

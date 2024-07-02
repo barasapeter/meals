@@ -75,6 +75,24 @@ def get_meals():
         })
     return jsonify(meals_list), 200
 
+@app.route('/api/meals/<int:meal_id>', methods=['DELETE'])
+@csrf.exempt
+def delete_meal(meal_id):
+    meal = Meal.query.get(meal_id)
+    
+    if not meal:
+        return jsonify({'error': 'Meal not found'}), 404
+
+    try:
+        db.session.delete(meal)
+        db.session.commit()
+        return jsonify({'message': 'Meal deleted successfully'}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': str(e)}), 500
+    finally:
+        db.session.close()
+
 @app.route('/')
 def index():
     return render_template('index.html')
