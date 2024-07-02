@@ -114,6 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 alert('Meal added successfully');
                 form.reset();
+                document.getElementById('dialogOverlay').style.display = 'none';
                 fetchMeals();
             }
         })
