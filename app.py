@@ -23,6 +23,11 @@ class Meal(db.Model):
     meal_type = db.Column(db.String(80), nullable=False)
     time = db.Column(db.Time, nullable=True)
 
+def create_database():
+    if not os.path.exists(os.path.join(app.root_path, 'database')):
+        os.makedirs(os.path.join(app.root_path, 'database'))
+    db.create_all()
+
 @app.route('/api/meals', methods=['POST'])
 @csrf.exempt
 def add_meal():
@@ -75,4 +80,6 @@ def index():
     return render_template('index.html')
 
 if __name__ == '__main__':
+    with app.app_context():
+        create_database()
     app.run(debug=True, host='0.0.0.0', port=5001)
